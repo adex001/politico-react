@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import { Header, Footer } from '../common/index';
+import Header from '../common/Header';
+import Footer from '../common/Footer';
 
 class Homepage extends Component {
   render() {

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Homepage } from './components/index'
+import Homepage from './src/containers/Homepage';
 import './App.css';
 
 class App extends Component {
