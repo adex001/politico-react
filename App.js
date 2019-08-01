@@ -1,21 +1,15 @@
-var React = require('react');
-var ReactDom = require('react-dom');
+import React, { Component, Fragment } from 'react'
+import Homepage from './src/containers/Homepage';
+import './App.css';
 
-// State
-// Lifecycle events or methods
-// UI
-
-
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
-    <h1>
-      This is POLITICO REACT.. WELCOME
-    </h1>
+      <Fragment>
+        <Homepage />
+      </Fragment>
     )
   }
 }
 
-ReactDom.render(
-  <App />, document.getElementById('app')
-)
+export default App;
