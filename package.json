@@ -10,10 +10,10 @@
     ]
   },
   "scripts": {
-    "build": "rm -rf dist && webpack --env.mode production",
+    "clean": "rm -rf dist",
+    "start": "webpack-dev-server --open",
     "start:dev": "webpack-dev-server --open",
-    "heroku-postbuild": "npm run build",
-    "start": "node app.js"
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
