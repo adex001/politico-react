@@ -25,6 +25,9 @@
   ],
   "author": "Olatunbosun Adeoye Ebenezer",
   "license": "ISC",
+  "engines": {
+    "node": "10.3.0"
+  },
   "bugs": {
     "url": "https://github.com/adex001/politico-react/issues"
   },
