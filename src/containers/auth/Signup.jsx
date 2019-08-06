@@ -2,10 +2,12 @@ import React, { Component, Fragment } from 'react';
 import Header from '@components/commons/Header';
 import Footer from '@components/commons/Footer';
 import SignModal from '@components/commons/SignModal';
-import images from '@images';
-const { home } = images;
 
-export default class Signup extends Component {
+class Signup extends Component {
+  constructor() {
+    super();
+    this.state={}
+  }
   render() {
     return (
       <Fragment>
@@ -16,3 +18,5 @@ export default class Signup extends Component {
     )
   }
 }
+
+export default Signup;
