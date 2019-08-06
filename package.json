@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "NODE_ENV=development webpack-dev-server --config webpack.dev.js --open",
+    "start": "webpack-dev-server",
     "build": "NODE_ENV=production npm run clean && webpack --config webpack.prod.js",
     "clean": "rm -rf dist",
     "heroku-postbuild": "npm run build"
