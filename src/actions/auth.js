@@ -1,32 +1,38 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
+  RESET_USER,
   LOGOUT_USER
 } from '@actions/types';
 
 axios.defaults.baseURL = 'https://politico2019.herokuapp.com/api/v1';
 
 const setToken =  token => {
-  token ? axios.defaults.headers.common['x-auth-token'] = token : delete axios.defaults.headers.common['x-auth-token'];   
+  token ? axios.defaults.headers.common['token'] = token : delete axios.defaults.headers.common['token'];   
 }
 
 export const signup = signupObject => async dispatch => {
   try {
-    const response = await axios.post('/auth/signup', signupObject);
-    setToken(response.data.token);
-    console.log(response);
-    dispatch(registerSuccess(response.data));
+    dispatch(resetUser());
+    const response = await axios.post('/auth/login', signupObject);
+    setToken(response.data.data[0].token);
+    localStorage.setItem('token', response.data.data[0].token);
+    dispatch(registerSuccess(response.data.data[0].user));
   } catch (err) {
+    dispatch(resetUser());
     dispatch(registerError(err.response));
+    return false;
   }
   
 }
 
 export const signin = signinObject => async dispatch => {
-  
+
 }
 
 const registerSuccess = payload => {
@@ -34,7 +40,13 @@ const registerSuccess = payload => {
     type: REGISTER_SUCCESS,
     payload,
   }
-}
+};
+
+const resetUser = () => {
+    return {
+      type: RESET_USER
+    }
+};
 
 const registerError = errors => {
   return {

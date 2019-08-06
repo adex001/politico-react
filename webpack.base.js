@@ -27,26 +27,11 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        enforce: 'pre',
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            options: {
-              eslintPath: require.resolve('eslint')
-            },
-            loader: 'eslint-loader'
-          }
-        ]
-      },
-      {
         test: /\.(css|scss|sass)/i,
         use: [
-          // MiniCssExtractPlugin.loader,
-          // { loader: 'style-loader' },
+          MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } },
-          "postcss-loader"
+          { loader: 'sass-loader', options: { sourceMap: true } }
         ]
       },
       {

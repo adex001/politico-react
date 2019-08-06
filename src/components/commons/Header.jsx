@@ -1,8 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import images from '@images';
+
 const { logo, hamburger } = images;
 
 class Header extends Component {
+  constructor(){
+    super();
+
+    this.state = {}
+  }
   render() {
     return (
       <header>
@@ -14,7 +20,7 @@ class Header extends Component {
             </a>
           </div>
           <span className="togglebar" id="toggler"> 
-            <img src={hamburger} alt="Image" />
+            <img src={hamburger} alt="Toggle" />
           </span>
           <ul id="js-nav">
             <li><a href="./html/signup.html">Signup</a></li>
