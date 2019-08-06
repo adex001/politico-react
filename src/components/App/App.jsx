@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import Homepage from '../../containers/Homepage';
-import './App.css';
+import Routes from '@components/App/Routes';
 
 class App extends Component {
   render() {
     return (
       <Fragment>
-        <Homepage />
+        {/* <Routes /> */}
       </Fragment>
     )
   }
