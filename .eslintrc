@@ -49,7 +49,7 @@
           ".jsx"
         ]
       }
-    ],
+    ]
   },
   "settings": {
     "import/resolver": {

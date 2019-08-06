@@ -30,7 +30,6 @@ module.exports = {
         test: /\.(css|scss|sass)/i,
         use: [
           MiniCssExtractPlugin.loader,
-          // { loader: 'style-loader' },
           { loader: 'css-loader', options: { sourceMap: true } },
           { loader: 'sass-loader', options: { sourceMap: true } }
         ]
@@ -50,6 +49,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "public/css/styles.css",
       chunkFilename: "styles.css"
-    }),
+    })
   ]
 };
