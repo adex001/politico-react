@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import {
@@ -23,6 +22,7 @@ export const signup = signupObject => async dispatch => {
     setToken(response.data.data[0].token);
     localStorage.setItem('token', response.data.data[0].token);
     dispatch(registerSuccess(response.data.data[0].user));
+    toast.success('Registration successful');
   } catch (err) {
     dispatch(resetUser());
     dispatch(registerError(err.response));
@@ -38,11 +38,22 @@ export const login = loginObject => async dispatch => {
     setToken(response.data.data[0].token);
     localStorage.setItem('token', response.data.data[0].token);
     dispatch(loginSuccess(response.data.data[0].user));
+    toast.success('Login successful');
   } catch (err) {
     dispatch(resetUser());
     dispatch(loginError(err.response));
+    toast.error('Something went wrong');
     return false;
   }
+}
+
+export const logout = () => dispatch => {
+  localStorage.removeItem('token');
+  setToken(false);
+  dispatch({
+    type: LOGOUT_USER
+  });
+  window.location.href = '/';
 }
 
 const loginError = error => {
