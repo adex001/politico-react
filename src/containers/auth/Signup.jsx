@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -89,7 +88,7 @@ Signup.propTypes = {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  isAdmin: (state.auth.user.isAdmin === null) ? false : state.auth.user.isAdmin
+  isAdmin: (state.auth.user.isAdmin == null) ? false : state.auth.user.isAdmin
 });
 
 export default connect(

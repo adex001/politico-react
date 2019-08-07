@@ -35,6 +35,21 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: false,
         error: {}
       }
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: true,
+        error: {}
+      }
+
+    case LOGIN_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        isAuthenticated: false
+      }
+    
     default:
       return state;
   }

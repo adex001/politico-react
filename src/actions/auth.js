@@ -19,7 +19,7 @@ const setToken =  token => {
 export const signup = signupObject => async dispatch => {
   try {
     dispatch(resetUser());
-    const response = await axios.post('/auth/login', signupObject);
+    const response = await axios.post('/auth/signup', signupObject);
     setToken(response.data.data[0].token);
     localStorage.setItem('token', response.data.data[0].token);
     dispatch(registerSuccess(response.data.data[0].user));
@@ -31,9 +31,33 @@ export const signup = signupObject => async dispatch => {
   
 }
 
-export const signin = signinObject => async dispatch => {
-
+export const login = loginObject => async dispatch => {
+  try {
+    dispatch(resetUser());
+    const response = await axios.post('/auth/login', loginObject);
+    setToken(response.data.data[0].token);
+    localStorage.setItem('token', response.data.data[0].token);
+    dispatch(loginSuccess(response.data.data[0].user));
+  } catch (err) {
+    dispatch(resetUser());
+    dispatch(loginError(err.response));
+    return false;
+  }
 }
+
+const loginError = error => {
+  return {
+    type: LOGIN_FAILURE,
+    payload: error
+  }
+}
+
+  const loginSuccess = payload => {
+    return {
+      type: LOGIN_SUCCESS,
+      payload,
+    }
+  };
 
 const registerSuccess = payload => {
   return {
@@ -54,4 +78,3 @@ const registerError = errors => {
     payload: errors
   }
 }
-

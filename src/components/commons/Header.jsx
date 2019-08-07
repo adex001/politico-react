@@ -14,7 +14,7 @@ class Header extends Component {
       <header>
         <div className="container">
           <div className="logo">
-            <a href="./index.html">
+            <a href="/l">
               <img src={logo} alt="Politico Logo" />
               <span>Politico</span>
             </a>
@@ -23,8 +23,8 @@ class Header extends Component {
             <img src={hamburger} alt="Toggle" />
           </span>
           <ul id="js-nav">
-            <li><a href="./html/signup.html">Signup</a></li>
-            <li><a href="./html/signin.html">Signin</a></li>
+            <li><a href="signup">Signup</a></li>
+            <li><a href="login">Signin</a></li>
           </ul>
         </div>
       </header>
