@@ -14,7 +14,7 @@ class Header extends Component {
       <header>
         <div className="container">
           <div className="logo">
-            <a href="/l">
+            <a href="/">
               <img src={logo} alt="Politico Logo" />
               <span>Politico</span>
             </a>
