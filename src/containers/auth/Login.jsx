@@ -30,9 +30,9 @@ class Login extends Component {
     }
     
     login(loginObject);
-    // isAuthenticated ? 
-    // history.push(isAdmin ? '/admin-dashboard' : '/user-dashboard') :
-    // history.push('login')
+    isAuthenticated ? 
+    history.push(isAdmin ? '/admin-dashboard' : '/user-dashboard') :
+    history.push('login')
   }
 
   handleChange = (e) => {

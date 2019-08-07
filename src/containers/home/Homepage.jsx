@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import Header from '../components/commons/Header';
-import Footer from '../components/commons/Footer';
+import Header from '@components/commons/Header';
+import Footer from '@components/commons/Footer';
 import images from '@images';
 import './index.css';
 
