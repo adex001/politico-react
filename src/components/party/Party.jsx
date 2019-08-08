@@ -1,34 +1,50 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { fetchParties } from "@actions/party";
+import { fetchParties, clearParty } from "@actions/party";
 import CreateParty from '@components/modals/CreateParty';
+import ModifyParty from '../modals/ModifyParty';
 
 class Party extends Component {
   constructor() {
     super();
     this.state = {
-      showCreatePartyModal: false
+      showCreatePartyModal: false,
+      showModifyPartyModal: false,
+      id: 0
     }
   }
-
+  
   componentDidMount(){
     const { fetchParties, } = this.props;
     fetchParties();
   }
-
+  
+  
   componentWillReceiveProps() {
     this.closeModal();
   }
-
+  
+  componentWillUnmount(){
+    const { clearParty } = this.props;
+    clearParty();
+  }
   openCreateModal = () => {
     this.setState({
       showCreatePartyModal: true
     });
   }
+  openModifyModal = (e) => {
+    const id = e.target.attributes.getNamedItem('data').value;
+    this.setState({
+      id,
+      showModifyPartyModal: true
+    });
+  }
   closeModal = () => {
     this.setState({
-      showCreatePartyModal: false
+      showCreatePartyModal: false,
+      showModifyPartyModal: false
     });
   }
   
@@ -42,13 +58,17 @@ class Party extends Component {
           <span className="plogo"><img src={party.logo} alt="logo" /></span>
           <span className="pname">{party.name}</span>
           <span className="paddress">{party.address}</span>
+          <span className="action">
+            <button className="warning modify" type="button" onClick={this.openModifyModal} data={party.partyid}>modify</button>
+            <button className="danger delete-party" type="button">delete</button>
+          </span>
         </li>
       )
     })
   }
   render() {
     const { parties } = this.props;
-    const { showCreatePartyModal } = this.state;
+    const { showCreatePartyModal, showModifyPartyModal, id } = this.state;
     return (
       <Fragment>
         <button type="button" onClick={this.openCreateModal}>Add Party </button>
@@ -62,6 +82,7 @@ class Party extends Component {
           {this.displayParties(parties)}
         </ul>
         {showCreatePartyModal ? <CreateParty close={this.closeModal} /> : '' }
+        {showModifyPartyModal ? <ModifyParty close={this.closeModal} id={id} /> : '' }
       </Fragment>
     )
   }
@@ -80,7 +101,8 @@ Party.propTypes = {
       logo: PropTypes.string,
       partyid: PropTypes.number
     })
-  )
+  ),
+  clearParty: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -91,5 +113,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchParties }
+  { fetchParties, clearParty }
 )(Party);

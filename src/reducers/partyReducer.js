@@ -1,5 +1,5 @@
 import {
-FETCH_PARTIES, FETCH_SINGLE_PARTY
+FETCH_PARTIES, FETCH_SINGLE_PARTY, UPDATE_SINGLE_PARTY, CLEAR_PARTIES
 } from '@actions/types';
 
 const initialState = {
@@ -19,8 +19,18 @@ const partyReducer = (state = initialState, action) => {
     case FETCH_SINGLE_PARTY:
       return {
         ...state,
-        parties: state.parties.concat(action.payload),
         party: action.payload
+      }
+    case UPDATE_SINGLE_PARTY:
+      return {
+        ...state,
+        parties: action.payload
+      }
+    case CLEAR_PARTIES:
+      return {
+        parties: [],
+        party: {},
+        errors: {}
       }
     
       default:
