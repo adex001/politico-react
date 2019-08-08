@@ -7,8 +7,8 @@ import './index.css';
 const { home } = images;
 
 class Homepage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {}
   }
   render() {
@@ -19,7 +19,7 @@ class Homepage extends Component {
           <div className="container">
             <img className="logo-img" src={home} alt="Vote Carton" />
             <h2>Vote Wisely..</h2>
-            <a href="./html/signup.html">
+            <a href="/signup">
               <button type="button" id="vote-submit">Get Started</button>
             </a>
           </div>

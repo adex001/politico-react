@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { signup } from "@actions/auth";
+import { withRouter } from 'react-router-dom';
 import Header from '@components/commons/Header';
 import Footer from '@components/commons/Footer';
 import images from '@images';
@@ -35,15 +36,11 @@ class Signup extends Component {
     e.preventDefault();
     const { user } = this.state;
     const { email, password, firstname, lastname } = user
-    const { signup, history, isAdmin, isAuthenticated } = this.props;
+    const { signup, history } = this.props;
     const signupObject = {
       email, password, firstname, lastname
     }
-    signup(signupObject);
-    
-    isAuthenticated ? 
-    history.push(isAdmin ? '/admin-dashboard' : '/user-dashboard') :
-    history.push('signup')
+    signup(signupObject, history);
 
   }
   render() {
@@ -73,16 +70,9 @@ class Signup extends Component {
   }
 }
 
-Signup.defaultProps = {
-  isAdmin: false,
-  isAuthenticated: false
-}
-
 Signup.propTypes = {
   signup: PropTypes.func.isRequired,
   history: PropTypes.func.isRequired,
-  isAdmin: PropTypes.bool,
-  isAuthenticated: PropTypes.bool
 
 };
 
@@ -94,4 +84,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { signup }
-)(Signup);
+)(withRouter(Signup));

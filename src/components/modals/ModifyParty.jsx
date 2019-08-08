@@ -50,7 +50,7 @@ class ModifyParty extends Component {
     const { close } = this.props;
 
     const { party } = this.state;
-    
+    const defaultLogo = 'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
     return (
       <div className="center-items make-flex-column">
         <div className="create make-flex-column">
@@ -65,9 +65,13 @@ class ModifyParty extends Component {
           </span>
           <h2>Modify Political Party</h2>
           <form method="POST" action="#" onSubmit={this.handleSubmit}>
+            <div>
+              <h4>Party Logo</h4>
+              <img src={defaultLogo ? defaultLogo :party.logoUrl} alt="party logo" />
+            </div>
             <input type="text" className="create-group" id="c-party-name" value={party.name} placeholder="Party Name" name="name" onChange={this.handleChange} />
             <input type="text" className="create-group" id="c-party-address" placeholder="Party Address" name="address" onChange={this.handleChange} value={party.address} />
-            <input type="text" className="create-group" id="c-party-logo" placeholder="Icon URL" name="logoUrl" onChange={this.handleChange} value={party.logoUrl} />
+            <input type="file" accept="image/*" id="c-party-logo" name="logoUrl" onChange={this.handleImage} />
             <input type="submit" className="submit-button" value="Modify" id="m-submit-party" />
             <input type="button" className="submit-button" value="Clear" id="m-clear-party" onClick={this.clear} />
           </form>

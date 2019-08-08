@@ -6,9 +6,8 @@ export const fetchParties = () => async dispatch => {
   try {
     const response = await axios.get('/parties');
     dispatch(setParties(response.data.data));
-    toast.success('Parties retrieved!');
   } catch (err) {
-    toast.error('Cannot fetch parties!');
+    toast.error(err.response.message);
   }
 }
 
@@ -51,8 +50,9 @@ export const deleteParty = (id) => async dispatch => {
 
 export const createParty = payload => async dispatch  => {
   try {
-    const response = await axios.post('/parties', payload);
-    dispatch(setParty(response.data.data));
+    await axios.post('/parties', payload);
+    const response = await axios.get('/parties');
+    dispatch(setParties(response.data.data));
     toast.success('Party added!');
   } catch (err) {
     toast.error('Cannot create party!');
