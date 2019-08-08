@@ -30,7 +30,7 @@ class Header extends Component {
               <li><a href="/signup">Signup</a></li>
               <li><a href="/login">Signin</a></li>
             </ul>
-): <a href="/logout">Logout</a> }
+): <a href="/logout" className="sweet-link">Logout</a> }
 
         </div>
       </header>

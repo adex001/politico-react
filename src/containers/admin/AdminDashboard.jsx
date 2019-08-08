@@ -10,17 +10,19 @@ class AdminDashboard extends Component {
     super();
     this.state = {}
   }
+  
   render() {
     return (
       <Fragment>
         <IsAuthenticated />
         <Header />
-        
-        <Party />
+        <main>
+          <Party />
+        </main>
         <Footer />
       </Fragment>
     )
-  }
+    }
 }
 
 export default AdminDashboard;

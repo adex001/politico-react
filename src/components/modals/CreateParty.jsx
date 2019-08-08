@@ -60,8 +60,8 @@ class CreateParty extends Component {
   render() {
     const { close } = this.props;
     return (
-      <div id="" className="center-items make-flex-column">
-        <div className="create make-flex-column">
+      <div className="modal">
+        <div>
           <span
             className="close"
             onClick={close} 
@@ -69,11 +69,11 @@ class CreateParty extends Component {
             role='presentation'
             id="pty"
           >
-&times;
+  &times;
 
           </span>
           <h2>Create Poltical Party</h2>
-          <form method="POST" action="#" onSubmit={this.handleSubmit}>
+          <form className="myform" method="POST" action="#" onSubmit={this.handleSubmit}>
             <input type="text" className="create-group" id="c-party-name" placeholder="Party Name" name="name" onChange={this.handleChange} required />
             <input type="text" className="create-group" id="c-party-address" placeholder="Party Address" name="address" onChange={this.handleChange} required />
             <input type="file" accept="image/*" className="create-group" id="c-party-logo" name="logoUrl" onChange={this.handleImage} />

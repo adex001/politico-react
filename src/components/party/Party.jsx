@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { fetchParties, clearParty, deleteParty } from "@actions/party";
@@ -76,20 +76,22 @@ class Party extends Component {
     const { parties } = this.props;
     const { showCreatePartyModal, showModifyPartyModal, id } = this.state;
     return (
-      <Fragment>
-        <button type="button" onClick={this.openCreateModal}>Add Party </button>
-        <ul>
-          <li className="make-flex-row center-items pdisp make-bold">
+      <div className="makerelative">
+        <button type="button" onClick={this.openCreateModal} className="make-button">Add Party </button>
+        <ul className="make-flex-column">
+          <li className="make-flex-row center-items bold first-row">
             <span className="sn">s/n</span>
             <span className="plogo">Party Logo</span>
             <span className="pname">Party Name</span>
             <span className="paddress">Party Address</span>
+            <span className="action"> Action </span>  
           </li>
           {this.displayParties(parties)}
         </ul>
+        
         {showCreatePartyModal ? <CreateParty close={this.closeModal} /> : '' }
         {showModifyPartyModal ? <ModifyParty close={this.closeModal} id={id} /> : '' }
-      </Fragment>
+      </div>
     )
   }
 }

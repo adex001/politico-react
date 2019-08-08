@@ -7,7 +7,7 @@ export const fetchParties = () => async dispatch => {
     const response = await axios.get('/parties');
     dispatch(setParties(response.data.data));
   } catch (err) {
-    toast.error(err.response.message);
+    toast.error(err.response.data.error);
   }
 }
 
@@ -43,8 +43,9 @@ export const deleteParty = (id) => async dispatch => {
     await axios.delete(`/parties/${id}`);
     const response = await axios.get('/parties');
     dispatch(setParties(response.data.data));
+    toast.success('Party deleted!');
   } catch (err) {
-    toast.error(err.response.message);
+    toast.error(err.response.data.error);
   }
 }
 
@@ -55,7 +56,7 @@ export const createParty = payload => async dispatch  => {
     dispatch(setParties(response.data.data));
     toast.success('Party added!');
   } catch (err) {
-    toast.error('Cannot create party!');
+    toast.error(err.response.data.error);
   }
 }
 
@@ -66,15 +67,14 @@ export const modifyParty = (id, payload) => async dispatch => {
     dispatch(setParties(response.data.data));
     toast.success('Party updated successfully!');
   } catch (err) {
-    toast.error(err.response.error);
+    toast.error(err.response.data.error);
   }
 }
 export const getParty = id => async dispatch => {
   try {
     const response = await axios.get(`/parties/${id}`);
     dispatch(setParty(response.data.data[0]));
-    toast.success('Party retrieved!');
   } catch (err) {
-    toast.error(err.response.error);
+    toast.error(err.response.data.error);
   }
 }
