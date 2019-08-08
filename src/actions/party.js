@@ -39,6 +39,16 @@ export const clearParty = () => dispatch => {
   })
 }
 
+export const deleteParty = (id) => async dispatch => {
+  try {
+    await axios.delete(`/parties/${id}`);
+    const response = await axios.get('/parties');
+    dispatch(setParties(response.data.data));
+  } catch (err) {
+    toast.error(err.response.message);
+  }
+}
+
 export const createParty = payload => async dispatch  => {
   try {
     const response = await axios.post('/parties', payload);
@@ -53,7 +63,7 @@ export const modifyParty = (id, payload) => async dispatch => {
   try {
     await axios.patch(`/parties/${id}`, payload);
     const response = await axios.get('/parties');
-    dispatch(updateParty(response.data.data));
+    dispatch(setParties(response.data.data));
     toast.success('Party updated successfully!');
   } catch (err) {
     toast.error(err.response.error);

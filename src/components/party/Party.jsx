@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { fetchParties, clearParty } from "@actions/party";
+import { fetchParties, clearParty, deleteParty } from "@actions/party";
 import CreateParty from '@components/modals/CreateParty';
 import ModifyParty from '../modals/ModifyParty';
 
@@ -41,6 +41,12 @@ class Party extends Component {
       showModifyPartyModal: true
     });
   }
+  deleteParty = e => {
+    const { deleteParty } = this.props;
+    const id = e.target.attributes.getNamedItem('data').value;
+    deleteParty(id);
+
+  }
   closeModal = () => {
     this.setState({
       showCreatePartyModal: false,
@@ -60,7 +66,7 @@ class Party extends Component {
           <span className="paddress">{party.address}</span>
           <span className="action">
             <button className="warning modify" type="button" onClick={this.openModifyModal} data={party.partyid}>modify</button>
-            <button className="danger delete-party" type="button">delete</button>
+            <button className="danger delete-party" type="button" onClick={this.deleteParty} data={party.partyid}>delete</button>
           </span>
         </li>
       )
@@ -102,7 +108,8 @@ Party.propTypes = {
       partyid: PropTypes.number
     })
   ),
-  clearParty: PropTypes.func.isRequired
+  clearParty: PropTypes.func.isRequired,
+  deleteParty: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -113,5 +120,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchParties, clearParty }
+  { fetchParties, clearParty, deleteParty }
 )(Party);
