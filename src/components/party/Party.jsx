@@ -34,10 +34,9 @@ class Party extends Component {
       showCreatePartyModal: true
     });
   }
-  openModifyModal = (e) => {
-    const id = e.target.attributes.getNamedItem('data').value;
+  openModifyModal = (partyid) => {
     this.setState({
-      id,
+      id: partyid,
       showModifyPartyModal: true
     });
   }
@@ -53,7 +52,7 @@ class Party extends Component {
       showModifyPartyModal: false
     });
   }
-  
+
   displayParties = (parties) => {
     if(parties.length === 0 ) return <p>Parties Empty. Check back later! </p>
 
@@ -65,7 +64,7 @@ class Party extends Component {
           <span className="pname">{party.name}</span>
           <span className="paddress">{party.address}</span>
           <span className="action">
-            <button className="warning modify" type="button" onClick={this.openModifyModal} data={party.partyid}>modify</button>
+            <button className="warning modify" type="button" onClick={() => this.openModifyModal(party.partyid)} data={party.partyid}>modify</button>
             <button className="danger delete-party" type="button" onClick={this.deleteParty} data={party.partyid}>delete</button>
           </span>
         </li>
@@ -89,8 +88,8 @@ class Party extends Component {
           {this.displayParties(parties)}
         </ul>
         
-        {showCreatePartyModal ? <CreateParty close={this.closeModal} /> : '' }
-        {showModifyPartyModal ? <ModifyParty close={this.closeModal} id={id} /> : '' }
+        {showCreatePartyModal ? <CreateParty close={this.closeModal} handleImage={this.handleImage} /> : '' }
+        {showModifyPartyModal ? <ModifyParty partyFrom={parties.find(party => party.partyid === id)} close={this.closeModal} id={id} handleImage={this.handleImage} /> : '' }
       </div>
     )
   }
