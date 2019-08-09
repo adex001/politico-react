@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import axios from 'axios';
+import instance from '@helpers/axioshelp';
 import PropTypes from "prop-types";
 import { createParty } from "@actions/party";
 
-const instance = axios.create({
-  headers: {}
-});
 
 class CreateParty extends Component {
   constructor(props){
