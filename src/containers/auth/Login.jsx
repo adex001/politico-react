@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { Component, Fragment } from 'react';
 import Header from '@components/commons/Header';
 import Footer from '@components/commons/Footer';
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { login } from "@actions/auth";
 import images from '@images';
@@ -9,8 +11,8 @@ import images from '@images';
 const { logo } = images;
 
 class Login extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       user: {
         email: '',
@@ -28,11 +30,7 @@ class Login extends Component {
       email,
       password
     }
-    
-    login(loginObject);
-    isAuthenticated ? 
-    history.push(isAdmin ? '/admin-dashboard' : '/user-dashboard') :
-    history.push('login')
+    login(loginObject, history);
   }
 
   handleChange = (e) => {
@@ -95,4 +93,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { login }
-)(Login);
+)(withRouter(Login));

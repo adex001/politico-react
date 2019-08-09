@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 import images from '@images';
 
 const { logo, hamburger } = images;
 
 class Header extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
 
     this.state = {}
   }
   render() {
+    const { isAuthenticated } = this.props;
     return (
       <header>
         <div className="container">
@@ -22,14 +25,28 @@ class Header extends Component {
           <span className="togglebar" id="toggler"> 
             <img src={hamburger} alt="Toggle" />
           </span>
-          <ul id="js-nav">
-            <li><a href="signup">Signup</a></li>
-            <li><a href="login">Signin</a></li>
-          </ul>
+          {!isAuthenticated ? (          
+            <ul id="js-nav">
+              <li><a href="/signup">Signup</a></li>
+              <li><a href="/login">Signin</a></li>
+            </ul>
+): <a href="/logout" className="sweet-link">Logout</a> }
+
         </div>
       </header>
     )
   }
 }
 
-export default Header;
+Header.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired
+}
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(Header);

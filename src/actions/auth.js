@@ -15,29 +15,29 @@ export const setToken =  token => {
   token ? axios.defaults.headers.common['token'] = token : delete axios.defaults.headers.common['token'];   
 }
 
-export const signup = signupObject => async dispatch => {
+export const signup = (signupObject, history) => async dispatch => {
   try {
     dispatch(resetUser());
     const response = await axios.post('/auth/signup', signupObject);
     setToken(response.data.data[0].token);
     localStorage.setItem('token', response.data.data[0].token);
     dispatch(registerSuccess(response.data.data[0].user));
+    history.push('./user-dashboard');
     toast.success('Registration successful');
   } catch (err) {
     dispatch(resetUser());
     dispatch(registerError(err.response));
     return false;
   }
-  
 }
 
-export const login = loginObject => async dispatch => {
+export const login = (loginObject, history) => async dispatch => {
   try {
-    dispatch(resetUser());
     const response = await axios.post('/auth/login', loginObject);  
     setToken(response.data.data[0].token);
     localStorage.setItem('token', response.data.data[0].token);
     dispatch(loginSuccess(response.data.data[0].user));
+    history.push('/admin-dashboard');
     toast.success('Login successful');
   } catch (err) {
     dispatch(resetUser());
@@ -47,13 +47,16 @@ export const login = loginObject => async dispatch => {
   }
 }
 
+const logoutUser = () => {
+  return {
+    type: LOGOUT_USER
+  }
+} 
+
 export const logout = () => dispatch => {
   localStorage.removeItem('token');
   setToken(false);
-  dispatch({
-    type: LOGOUT_USER
-  });
-  window.location.href = '/';
+  dispatch(logoutUser());
 }
 
 const loginError = error => {

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { fetchParties, clearParty, deleteParty } from "@actions/party";
@@ -34,10 +34,9 @@ class Party extends Component {
       showCreatePartyModal: true
     });
   }
-  openModifyModal = (e) => {
-    const id = e.target.attributes.getNamedItem('data').value;
+  openModifyModal = (partyid) => {
     this.setState({
-      id,
+      id: partyid,
       showModifyPartyModal: true
     });
   }
@@ -53,7 +52,7 @@ class Party extends Component {
       showModifyPartyModal: false
     });
   }
-  
+
   displayParties = (parties) => {
     if(parties.length === 0 ) return <p>Parties Empty. Check back later! </p>
 
@@ -65,7 +64,7 @@ class Party extends Component {
           <span className="pname">{party.name}</span>
           <span className="paddress">{party.address}</span>
           <span className="action">
-            <button className="warning modify" type="button" onClick={this.openModifyModal} data={party.partyid}>modify</button>
+            <button className="warning modify" type="button" onClick={() => this.openModifyModal(party.partyid)} data={party.partyid}>modify</button>
             <button className="danger delete-party" type="button" onClick={this.deleteParty} data={party.partyid}>delete</button>
           </span>
         </li>
@@ -76,20 +75,22 @@ class Party extends Component {
     const { parties } = this.props;
     const { showCreatePartyModal, showModifyPartyModal, id } = this.state;
     return (
-      <Fragment>
-        <button type="button" onClick={this.openCreateModal}>Add Party </button>
-        <ul>
-          <li className="make-flex-row center-items pdisp make-bold">
+      <div className="makerelative">
+        <button type="button" onClick={this.openCreateModal} className="make-button">Add Party </button>
+        <ul className="make-flex-column">
+          <li className="make-flex-row center-items bold first-row">
             <span className="sn">s/n</span>
             <span className="plogo">Party Logo</span>
             <span className="pname">Party Name</span>
             <span className="paddress">Party Address</span>
+            <span className="action"> Action </span>  
           </li>
           {this.displayParties(parties)}
         </ul>
-        {showCreatePartyModal ? <CreateParty close={this.closeModal} /> : '' }
-        {showModifyPartyModal ? <ModifyParty close={this.closeModal} id={id} /> : '' }
-      </Fragment>
+        
+        {showCreatePartyModal ? <CreateParty close={this.closeModal} handleImage={this.handleImage} /> : '' }
+        {showModifyPartyModal ? <ModifyParty partyFrom={parties.find(party => party.partyid === id)} close={this.closeModal} id={id} handleImage={this.handleImage} /> : '' }
+      </div>
     )
   }
 }
